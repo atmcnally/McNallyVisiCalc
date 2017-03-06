@@ -50,13 +50,14 @@ public class VisiCalc {
         	
         	if (input.length() >= 4) {
         		
+        		//excludes space
         		firstFour = input.substring(0, 4);
         		fileName = input.substring(5);
         		
         		if (firstFour.equalsIgnoreCase("load")) {
               	   
         			Scanner fileScan = new Scanner(fileName);
-        			processFile(fileName);
+        			processFile(fileScan);
               	   
                 } else if (firstFour.equalsIgnoreCase("save")) {
                 	
