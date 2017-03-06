@@ -56,8 +56,7 @@ public class VisiCalc {
         		
         		if (firstFour.equalsIgnoreCase("load")) {
               	   
-        			Scanner fileScan = new Scanner(fileName);
-        			processFile(fileScan);
+        			processFile(filename);
               	   
                 } else if (firstFour.equalsIgnoreCase("save")) {
                 	
@@ -84,11 +83,17 @@ public class VisiCalc {
            }
        }
 
-	public void processFile(Scanner fileScan) {
+	public void processFile(String filename) {
+		
+		//file name is 5 to end, so inclues the .txt
+		//assuming same directory
+		Scanner fileScan = new Scanner(fileName);
 		
 		while (fileScan.hasNextLine()) {
 			
   	    input = fileScan.nextLine();
+  	    
+  	    processCommand(input, fileScan);
   	    
 		}
 		
