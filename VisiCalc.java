@@ -10,22 +10,24 @@ public class VisiCalc {
 		
 		Grid gridSheet = new Grid();
 		gridSheet.fillGrid();
+		//sets .value of spreadsheet at E3 to 5
 		gridSheet.spreadsheet[2][4].value = "5"; 
+		File temporary = new File("temp.txt");
 		
 		Scanner console = new Scanner(System.in);
-        PrintStream saver = new PrintStream(new File("temp.txt"));
+        PrintStream saver = new PrintStream(temporary);
         
         String input = "";
         //creates scanner for input after first input received
     	Scanner inputScanner = new Scanner(input);
 	    
+    	
 	    //while loop for input
         while (!(input.equals("quit"))) {
         	//takes a line of input
         	input = console.nextLine();
         
         	processCommand(input, console);
-        	
 		
         	if(input.equals("print")) {
         		gridSheet.printGrid();
@@ -42,21 +44,22 @@ public class VisiCalc {
         
 	//input goes to cell and then to grid??
 	
-        public void processCommand(String input, Scanner console) {
+		//only has console to handle closing it for quit
+        public static void processCommand(String input, Scanner console) {
         	
         	input = input.toLowerCase();
         	String fileName;
         	String firstFour;
         	
-        	if (input.length() >= 4) {
+        	if (input.length() > 4) {
         		
-        		//excludes space
+        		//excludes space since substring is not inclusive
         		firstFour = input.substring(0, 4);
         		fileName = input.substring(5);
         		
         		if (firstFour.equalsIgnoreCase("load")) {
               	   
-        			processFile(filename);
+        			processFile(fileName);
               	   
                 } else if (firstFour.equalsIgnoreCase("save")) {
                 	
@@ -64,6 +67,7 @@ public class VisiCalc {
                 	
                 	//if(fileName)
                 	//transfer from temp file to file of specified name
+                	//temporary.renameTo(fileName);
                 }
         	} 
         	
@@ -83,17 +87,17 @@ public class VisiCalc {
            }
        }
 
-	public void processFile(String filename) {
+	public static void processFile(String filename) {
 		
-		//file name is 5 to end, so inclues the .txt
+		//file name is 5 to end, so includes the .txt
 		//assuming same directory
-		Scanner fileScan = new Scanner(fileName);
+		Scanner fileScan = new Scanner(filename);
+		
+		String input = "";
 		
 		while (fileScan.hasNextLine()) {
-			
-  	    input = fileScan.nextLine();
-  	    
-  	    processCommand(input, fileScan);
+			input = fileScan.nextLine();
+			processCommand(input, fileScan);
   	    
 		}
 		
