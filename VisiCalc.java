@@ -45,7 +45,7 @@ public class VisiCalc {
 	//input goes to cell and then to grid??
 	
 		//only has console to handle closing it for quit
-        public static void processCommand(String input, Scanner console) {
+        public static void processCommand(String input, Scanner console) throws FileNotFoundException {
         	
         	input = input.toLowerCase();
         	String fileName;
@@ -58,12 +58,12 @@ public class VisiCalc {
         		fileName = input.substring(5);
         		
         		if (firstFour.equalsIgnoreCase("load")) {
-              	   
+        			
         			processFile(fileName);
               	   
                 } else if (firstFour.equalsIgnoreCase("save")) {
                 	
-                	File f = new File(fileName);
+                	File saveFile = new File(fileName);
                 	
                 	//if(fileName)
                 	//transfer from temp file to file of specified name
@@ -87,11 +87,13 @@ public class VisiCalc {
            }
        }
 
-	public static void processFile(String filename) {
+	public static void processFile(String fileName) throws FileNotFoundException {
+		
+		File loadFile = new File(fileName);
 		
 		//file name is 5 to end, so includes the .txt
 		//assuming same directory
-		Scanner fileScan = new Scanner(filename);
+		Scanner fileScan = new Scanner(loadFile);
 		
 		String input = "";
 		
