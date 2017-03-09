@@ -4,14 +4,13 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class VisiCalc {
+	//what is safe to make static?? everything
 	public static String optionResult = "";
+	public static Grid gridSheet = new Grid();
+	public static File temporary = new File("temp.txt");
+	public static Scanner console = new Scanner(System.in);
 	
-    //what is safe to make static??
-		
 	public static void main(String[] args) throws FileNotFoundException {
-		Grid gridSheet = new Grid();
-		File temporary = new File("temp.txt");
-		Scanner console = new Scanner(System.in);
 		PrintStream saver = new PrintStream(temporary);
 		
 		gridSheet.fillGrid();
@@ -20,18 +19,14 @@ public class VisiCalc {
 		
         
         String input = "";
-        //creates scanner for input after first input received
-    	Scanner inputScanner = new Scanner(input);
-	    
-    	
+
 	    //while loop for input
         while (!(input.equals("quit"))) {
         	//takes a line of input
         	input = console.nextLine();
         
-        	processCommand(input, console, gridSheet, temporary);
+        	processCommand(input);
 		
-        	
         	//save input to temp file
         	saver.println(input);
         	
@@ -44,9 +39,11 @@ public class VisiCalc {
 	//input goes to cell and then to grid??
 	
 		//only has console to handle closing it for quit
-        public static void processCommand(String input, Scanner console, Grid gridSheet, File temporary) throws FileNotFoundException {
+        public static void processCommand(String input) throws FileNotFoundException {
         	
         	input = input.toLowerCase();
+            //creates scanner for input after first input received
+        	Scanner inputScanner = new Scanner(input);
         	String fileName;
         	String firstFour;
         	
@@ -62,33 +59,51 @@ public class VisiCalc {
            		
            	   } else if (firstFour.equalsIgnoreCase("load")) {
         			
-        			processFile(fileName, console, gridSheet, temporary);
+        			processFile(fileName);
               	   
                 } else if (firstFour.equalsIgnoreCase("save")) {
                 	
+                	System.out.println(fileName);
                 	File saveFile = new File(fileName);
                 	
-                	//if(fileName)
-                	//transfer from temp file to file of specified name
-                	temporary.renameTo(saveFile);
+                	//beautiful code that does not work
+                		//transfer from temp file to file of specified name
+                		//System.out.println(temporary.renameTo(saveFile));
+                	
+                	//stream to that file
+                	PrintStream saveWriter = new PrintStream(saveFile);
+                	
+                	//scanner reads from temp to new file
+                	Scanner tempReader = new Scanner(temporary);
+                			
+                	while(tempReader.hasNextLine()) {
+                		saveWriter.println(tempReader.nextLine());
+                	}
+                	
+                	System.out.println("Saved as " + fileName);
                 }
         	} else if (input.equalsIgnoreCase("help")) {
                //help menu contents
                System.out.println("please write the help menu i am so lost");
                
-           } else if (input.equalsIgnoreCase("quit")){
+           } else if (input.equalsIgnoreCase("quit")) {
                  //quit option
                 
                    System.out.println("Thanks for using VisiCalc!");
                    console.close();
                    
-                   //need to get rid of last else or otherwise figure out how to get aroudn closed sanner- do while scanner is open?
+                   //need to get rid of last else or otherwise figure out how to get around closed scanner- do while scanner is open?
            } else {
-        	   System.out.println(input);
+        	   
+        	   //feed input to cell, store as equations and parse there
+        	   
            }
+           //else {
+        	 //  System.out.println(input);
+           //}
        }
 
-	public static void processFile(String fileName, Scanner console, Grid gridSheet, File temporary) throws FileNotFoundException {
+	public static void processFile(String fileName) throws FileNotFoundException {
 		
 		File loadFile = new File(fileName);
 		
@@ -98,9 +113,10 @@ public class VisiCalc {
 		
 		String input = "";
 		
+		//could use do while except might be nothing in file
 		while (fileScan.hasNextLine() && !input.equals("quit")) {
 			input = fileScan.nextLine();
-			processCommand(input, fileScan, gridSheet, temporary);
+			processCommand(input);
 			
 		}
 		
