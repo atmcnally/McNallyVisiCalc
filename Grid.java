@@ -2,7 +2,7 @@ public class Grid {
 	//grid is an array of cell objects, right? or is this just defining an array of cell objects within grid, not tied to it
 	Cell[][] spreadsheet = new Cell[10][7];
 
-	public String value = "asdf";
+	//public String value = "";
 	
 	public void fillGrid() {
 		

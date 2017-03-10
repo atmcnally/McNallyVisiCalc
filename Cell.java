@@ -1,6 +1,6 @@
 
 public class Cell {
-	String value;
+	public String value;
 	
 	public String toString() {
 		
@@ -13,25 +13,57 @@ public class Cell {
 	//print grid method should get all cells and print that field
 	
 	public Cell() {
-		
-	value = "          ";
+	
+		//sets default value
+		value = "          ";
 		
 	}
 	
 	//import input
-	public void parse(String input) {
+	//is this ok to be static??
+	public static void parse(String input, Grid gridSheet) {
+		
+		//these are declared for all, but are used differently in each input type
+		//so parse differently to get these values but code for storing is the same
+		
+		char columnLetter;
+		int columnNumber;
+		int rowNumber;
 		
 		if(input.contains("=")) {
 			String inCell = input.substring(0, input.indexOf("="));
 			String contents = input.substring(input.indexOf("="));
-		} else if (input.length() < 4) {
 			
+		} else if (input.length() < 4 && input.length() >= 2) {
+			//what this part needs to do is print out the input from the specified cell
+			//assumes wither two or three chars are entered
 			
+			String caseChange = input.substring(0, 1).toUpperCase();
 			
+			columnLetter = caseChange.charAt(0);
+			rowNumber = Integer.parseInt(input.substring(1));
+			
+			//columnLetter to corresponding number
+			columnNumber = Character.getNumericValue(columnLetter) - 65;
+			
+			if (rowNumber >= 0 && rowNumber <= 10 && columnNumber >= 0 && columnNumber <= 7) {
+				
+				gridSheet.spreadsheet[rowNumber - 1][columnNumber - 1].value = input;
+				
+			}
+			
+			//implement error checking here later
+			//else {
+				
+				//error
+			//}
+			
+			System.out.print(columnLetter + "" + rowNumber);
+			
+			//store input as field of cell object, value that prints is different
 		}
 	//if cell contents too long, substring for printing to less than 10 characters
 	}
-	
 	
 }
 

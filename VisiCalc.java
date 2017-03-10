@@ -15,11 +15,10 @@ public class VisiCalc {
 		
 		gridSheet.fillGrid();
 		//sets .value of spreadsheet at E3 to 5
-		gridSheet.spreadsheet[2][4].value = "5"; 
+		//gridSheet.spreadsheet[2][4].value = "5"; 
 		
-        
         String input = "";
-
+        
 	    //while loop for input
         while (!(input.equals("quit"))) {
         	//takes a line of input
@@ -96,7 +95,9 @@ public class VisiCalc {
            } else {
         	   
         	   //feed input to cell, store as equations and parse there
+        	   Cell.parse(input, gridSheet);
         	   
+        	   //store as what was typed in, when printing do the equations etc.
            }
            //else {
         	 //  System.out.println(input);
