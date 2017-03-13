@@ -46,7 +46,10 @@ public class VisiCalc {
         	String fileName;
         	String firstFour;
         	
-        	if (input.length() > 4) {
+        	
+        	//parse out strings in quotes first?
+        	
+        	if (input.length() > 4 && (input.contains("print") || input.contains("load") || input.contains("save") || input.contains("clear"))) {
         		
         		//excludes space since substring is not inclusive
         		firstFour = input.substring(0, 4);
@@ -58,6 +61,7 @@ public class VisiCalc {
            		
            	   } else if (firstFour.equalsIgnoreCase("load")) {
         			
+           		   //cant quit from load file- FIX THIS
         			processFile(fileName);
               	   
                 } else if (firstFour.equalsIgnoreCase("save")) {
@@ -92,6 +96,16 @@ public class VisiCalc {
                    console.close();
                    
                    //need to get rid of last else or otherwise figure out how to get around closed scanner- do while scanner is open?
+           } else if(input.equalsIgnoreCase("clear")) {
+        	   
+        	   for(int i = 0; i < 10; i++) {
+       			
+        		   for(int j = 0; j < 7; j++) {
+       				gridSheet.spreadsheet[i][j].value = "          ";
+
+       				}
+       			}
+        	   
            } else {
         	   
         	   //feed input to cell, store as equations and parse there
@@ -122,4 +136,5 @@ public class VisiCalc {
 		}
 		
 	}
+	
 }

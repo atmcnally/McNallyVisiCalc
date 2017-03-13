@@ -1,4 +1,4 @@
 
-public class TextCell {
+public class TextCell extends Cell {
 
 }

@@ -1,4 +1,4 @@
 
-public class FormulaCell {
+public class FormulaCell extends Cell {
 
 }

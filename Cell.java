@@ -1,9 +1,23 @@
 
 public class Cell {
+	//for standard cells- not date, formula, or text
 	public String value;
 	
 	public String toString() {
 		
+		//gotta write the methods for executing code here i think, input is stored as value of the cells so when printing value, return code that's been worked on
+		
+		while (value.contains("\"")) {
+			
+			value = value.substring(value.indexOf("\"") + 1);
+			value = value.substring(0, value.indexOf("\""));
+		}
+		
+		if(value.length() > 10) {
+			
+			value = value.substring(0, 10);
+			
+		}
 		return value;
 		
 	}
@@ -29,41 +43,93 @@ public class Cell {
 		char columnLetter;
 		int columnNumber;
 		int rowNumber;
+		String caseChange;
+		String indicatedCell;
+		String contents;
+		
 		
 		if(input.contains("=")) {
-			String inCell = input.substring(0, input.indexOf("="));
-			String contents = input.substring(input.indexOf("="));
+			indicatedCell = input.substring(0, input.indexOf("=") - 1);
+			contents = input.substring(input.indexOf("=") + 2);
 			
-		} else if (input.length() < 4 && input.length() >= 2) {
-			//what this part needs to do is print out the input from the specified cell
-			//assumes wither two or three chars are entered
-			
-			String caseChange = input.substring(0, 1).toUpperCase();
+			//indicatedCell is what input is to input print
+			caseChange = indicatedCell.substring(0, 1).toUpperCase();
 			
 			columnLetter = caseChange.charAt(0);
-			rowNumber = Integer.parseInt(input.substring(1));
+			rowNumber = Integer.parseInt(indicatedCell.substring(1)) - 1;
 			
 			//columnLetter to corresponding number
-			columnNumber = Character.getNumericValue(columnLetter) - 65;
+			columnNumber = Character.getNumericValue(columnLetter) - 10;
 			
 			if (rowNumber >= 0 && rowNumber <= 10 && columnNumber >= 0 && columnNumber <= 7) {
 				
-				gridSheet.spreadsheet[rowNumber - 1][columnNumber - 1].value = input;
+				gridSheet.spreadsheet[rowNumber][columnNumber].value = contents;
 				
 			}
 			
-			//implement error checking here later
-			//else {
+		} else if (input.length() < 4 && input.length() >= 2) {
+			
+			//INPUT PRINT
+			//what this part needs to do is print out the input from the specified cell
+			//assumes wither two or three chars are entered
+			
+			caseChange = input.substring(0, 1).toUpperCase();
+			
+			columnLetter = caseChange.charAt(0);
+			rowNumber = Integer.parseInt(input.substring(1)) - 1;
+			
+			//columnLetter to corresponding number
+			columnNumber = Character.getNumericValue(columnLetter) - 10;
+			
+			System.out.print(gridSheet.spreadsheet[rowNumber][columnNumber].value);
+			
+		} else if (input.contains("clear")) {
+			contents = input.substring(input.indexOf(" ") + 1);
+			
+			caseChange = contents.substring(0, 1).toUpperCase();
+			
+			columnLetter = caseChange.charAt(0);
+			rowNumber = Integer.parseInt(contents.substring(1)) - 1;
+			
+			//columnLetter to corresponding number
+			columnNumber = Character.getNumericValue(columnLetter) - 10;
+			
+			gridSheet.spreadsheet[rowNumber][columnNumber].value = "          ";
+			
+		}
+			/*implement error checking here later
+			 else {
 				
 				//error
-			//}
-			
-			System.out.print(columnLetter + "" + rowNumber);
+			} */
 			
 			//store input as field of cell object, value that prints is different
-		}
+		
 	//if cell contents too long, substring for printing to less than 10 characters
 	}
+	
+	//parses 2-3 character string into rowNumber and columnNumber to save input there
+	
+	/*
+	public void splitLocation(String input) {
+		
+		String caseChange = input.substring(0, 1).toUpperCase();
+		
+		columnLetter = caseChange.charAt(0);
+		rowNumber = Integer.parseInt(input.substring(1));
+		
+		//columnLetter to corresponding number
+		columnNumber = Character.getNumericValue(columnLetter) - 65;
+		
+		if (rowNumber >= 0 && rowNumber <= 10 && columnNumber >= 0 && columnNumber <= 7) {
+			
+			gridSheet.spreadsheet[rowNumber - 1][columnNumber - 1].value = input;
+			
+		}
+		
+	}
+	
+	*/
 	
 }
 

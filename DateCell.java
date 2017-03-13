@@ -1,4 +1,4 @@
 
-public class DateCell {
+public class DateCell extends Cell {
 
 }
