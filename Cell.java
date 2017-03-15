@@ -81,7 +81,7 @@ public class Cell {
 			//columnLetter to corresponding number
 			columnNumber = Character.getNumericValue(columnLetter) - 10;
 			
-			System.out.print(gridSheet.spreadsheet[rowNumber][columnNumber].value);
+			System.out.println(gridSheet.spreadsheet[rowNumber][columnNumber].value);
 			
 		} else if (input.contains("clear")) {
 			contents = input.substring(input.indexOf(" ") + 1);

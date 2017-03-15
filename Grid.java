@@ -41,6 +41,7 @@ public class Grid {
 			
 			System.out.printf("%4d |", l);
 			
+			//when it calls spreadsheet[i][j] to print, the cell calls the toString method which prints value
 			for(int j = 0; j < 7; j++) {
 				System.out.printf("%10s |", spreadsheet[i][j]);
 
