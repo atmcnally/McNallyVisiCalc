@@ -2,22 +2,22 @@
 public class Cell {
 	//for standard cells- not date, formula, or text
 	public String value;
-	
+
 	public String toString() {
 		
 		//gotta write the methods for executing code here i think, input is stored as value of the cells so when printing value, return code that's been worked on
 		
-		while (value.contains("\"")) {
-			
-			value = value.substring(value.indexOf("\"") + 1);
-			value = value.substring(0, value.indexOf("\""));
+		if (value.contains("\"")) {
+			value = TextCell.formatString(value);
+		} else if (value.contains("(") && value.contains(")")) {
+			value = FormulaCell.formatFormula(value);
 		}
 		
+		//substring last!!!
 		if(value.length() > 10) {
-			
 			value = value.substring(0, 10);
-			
 		}
+		
 		return value;
 		
 	}
