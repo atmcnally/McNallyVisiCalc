@@ -116,6 +116,7 @@ public class VisiCalc {
            //else {
         	 //  System.out.println(input);
            //}
+        	
        }
 
 	public static void processFile(String fileName) throws FileNotFoundException {
