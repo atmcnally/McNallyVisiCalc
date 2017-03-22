@@ -2,23 +2,27 @@
 public class Cell {
 	//for standard cells- not date, formula, or text
 	public String value;
+	public String dispValue = "";
 
 	public String toString() {
 		
 		//gotta write the methods for executing code here i think, input is stored as value of the cells so when printing value, return code that's been worked on
+		//makes sure cells update, keeps from overwriting existing value
 		
 		if (value.contains("\"")) {
-			value = TextCell.formatString(value);
+			dispValue = TextCell.formatString(value);
 		} else if (value.contains("(") && value.contains(")")) {
-			value = FormulaCell.formatFormula(value);
+			dispValue = FormulaCell.formatEquation(value);
+		} else {
+			dispValue = value;
 		}
 		
 		//substring last!!!
-		if(value.length() > 10) {
-			value = value.substring(0, 10);
+		if(dispValue.length() > 10) {
+			dispValue = dispValue.substring(0, 10);
 		}
 		
-		return value;
+		return dispValue;
 		
 	}
 	
